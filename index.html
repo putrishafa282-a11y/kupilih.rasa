@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kupilih Rasa | Resep Cantik Rasa Tak Terkalahkan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Kupilih<span>.Rasa</span></div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#cara-pesan">Cara Pesan</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Camilan Kekinian, Rasa Pilihan!</h1>
+            <p>Resep Cantik Rasa Tak Terlupakan.</p>
+            <a href="#menu" class="btn-utama">Lihat Menu</a>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-container">
+        <h2>Risol Rainbow</h2>
+        <div class="grid-menu">
+            <div class="card">
+                <div class="badge">Best Seller</div>
+                <img src="c:\Users\ASUS\Downloads\Gemini_Generated_Image_vbcj5wvbcj5wvbcj.png" alt="Risol Matcha Cheese">
+                <h3>Risol Matcha Cheese</h3>
+                <p>Isian lumer dengan balutan glaze matcha yang manis dan parutan keju.</p>
+                <span class="harga">Rp 3.000</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Matcha Cheese')">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Gemini_Generated_Image_8d5bje8d5bje8d5b.png" alt="Risol Choco Cheese">
+                <h3>Risol Choco Cheese</h3>
+                <p>Cokelat melimpah yang lumer dengan perpaduan parutan keju di setiap gigitan.</p>
+                <span class="harga">Rp 3.000</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Choco Cheese')">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Gemini_Generated_Image_oyxit0oyxit0oyxi.png" alt="Risol Taro Cheese">
+                <h3>Risol Taro Cheese</h3>
+                <p>Perpaduan unik rasa Taro yang milky dengan gurihnya keju melimpah.</p>
+                <span class="harga">Rp 3.000</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Taro Cheese')">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Gemini_Generated_Image_l3nqk5l3nqk5l3nq.png" alt="Risol Red Velvet Oreo">
+                <h3>Risol Red Velvet Oreo</h3>
+                <p>Perpaduan mewah glaze Red Velvet lembut dengan isian bubuk oreo yang renyah.</p>
+                <span class="harga">Rp 3.000</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Red Velvet Oreo')">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Gemini_Generated_Image_422mjx422mjx422m.png" alt="Risol Choco Oreo">
+                <h3>Risol Choco Oreo</h3>
+                <p>Cokelat melimpah yang lumer dengan perpaduan bubuk oreo di setiap gigitan.</p>
+                <span class="harga">Rp 3.000</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Choco Oreo')">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Gemini_Generated_Image_ks03jeks03jeks03.png" alt="Risol Tiramisu Oreo">
+                <h3>Risol Tiramisu Oreo</h3>
+                <p>Sensasi elegan aroma Tiramisu premium bertemu dengan taburan Oreo yang crunchy.</p>
+                <span class="harga">Rp 3.000</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Tiramisu Oreo')">Pesan Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-container">
+        <h2>Pentol Kabul</h2>
+        <div class="grid-menu">
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Simple Gołąbki Recipe - Delicious Polish Stuffed Cabbage Rolls.jfif" alt="Siomay Gubis">
+                <h3>Siomay Gubis</h3>
+                <p>Sensasi kenyal adonan dalam balutan kubis segar.</p>
+                <span class="harga">Rp 500</span>
+                <button class="btn-pesan" onlick="tambahKeKeranjang(`Siomay Gubis`)">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\download (14).jfif" alt="Pentol Kabul">
+                <h3>Pentol Kabul</h3>
+                <p>Cari jajanan murah tapi rasa mewah? Pentol Kabul solusinya!</p>
+                <span class="harga">Rp 500</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang(`Pentol Kabul`)">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\Tahu Bakso.jfif" alt="Tahu Bakso">
+                <h3>Tahu Bakso</h3>
+                <p>Cocok untuk stok camilan. Dicocol sambal makin mantap!</p>
+                <span class="harga">Rp 500</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang(`Tahu Bakso`)">Pesan Sekarang</button>
+            </div>
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\download (15).jfif" alt="Siomay">
+                <h3>Siomay</h3>
+                <p>Lebih lengkap, lebih mantap dengan Siomay!</p>
+                <span class="harga">Rp 500</span>
+                <button class="btn-pesan" onclick="tambahKeKeranjang(`Siomay)">Pesan Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-container">
+        <h2>Nescafe</h2>
+        <div class="grid-menu">
+            <div class="card">
+                <img src="c:\Users\ASUS\Downloads\WhatsApp_Image_2026-04-12_at_20.17.34-removebg-preview.png" alt="menu ala cafe">
+            </div>
+        </div>
+    </section>
+
+    <section id="cara-pesan" class="cara-pesan">
+        <h2>Bagaimana Cara Pesan?</h2>
+        <div class="langkah-container">
+            <div class="langkah">
+                <i class="fas fa-search"></i>
+                <h4>1. Pilih Menu</h4>
+                <p>Pilih menu favoritmu dari katalog kami.</p>
+            </div>
+            <div class="langkah">
+                <i class="fab fa-whatsapp"></i>
+                <h4>2. Klik Pesan</h4>
+                <p>Tombol akan mengarahkanmu langsung ke WhatsApp kami.</p>
+            </div>
+            <div class="langkah">
+                <i class="fas fa-truck"></i>
+                <h4>3. Kirim / Ambil</h4>
+                <p>Pesanan siap diantar atau diambil di outlet terdekat.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy 2026 Kupilih Rasa. Dibuat dengan ❤️</p>
+    </footer>
+
+    <a href="https://wa.me/62895327556000" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
