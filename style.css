@@ -1,4 +1,3 @@
-/* Variabel Warna */
 :root {
     --warna-utama: #ff4d6d; /* Pink kemerahan */
     --warna-gelap: #2b2d42;
@@ -19,7 +18,6 @@ body {
     scroll-behavior: smooth;
 }
 
-/* Navbar */
 nav {
     display: flex;
     justify-content: space-between;
@@ -43,7 +41,6 @@ nav ul { display: flex; list-style: none; }
 nav ul li { margin-left: 20px; }
 nav ul li a { text-decoration: none; color: var(--warna-gelap); font-weight: 500; }
 
-/* Hero Section */
 .hero {
     height: 80vh;
     display: flex;
@@ -69,7 +66,6 @@ nav ul li a { text-decoration: none; color: var(--warna-gelap); font-weight: 500
     transition: 0.3s;
 }
 
-/* Menu Grid */
 .menu-container { padding: 50px 5%; text-align: center; }
 .grid-menu {
     display: grid;
@@ -104,7 +100,6 @@ nav ul li a { text-decoration: none; color: var(--warna-gelap); font-weight: 500
 
 .btn-pesan:hover { background: var(--warna-utama); }
 
-/* Cara Pesan */
 .cara-pesan { background: #fff; padding: 60px 10%; text-align: center; }
 .langkah-container {
     display: flex;
@@ -116,7 +111,6 @@ nav ul li a { text-decoration: none; color: var(--warna-gelap); font-weight: 500
 .langkah { flex: 1; min-width: 200px; padding: 20px; }
 .langkah i { font-size: 2.5rem; color: var(--warna-utama); margin-bottom: 15px; }
 
-/* Floating WhatsApp */
 .wa-float {
     position: fixed;
     bottom: 30px;
