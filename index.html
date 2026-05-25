@@ -321,23 +321,35 @@
             </form>
         </div>
 
-        <div class="laporan-box">
-            <h3>Daftar Log Transaksi Hari Ini</h3>
-            <div class="table-responsive">
-                <table id="tabel-penjualan">
-                    <thead>
-                        <tr>
-                            <th>Waktu</th>
-                            <th>Nama Produk</th>
-                            <th>Harga Total</th>
-                            <th>Petugas / Sumber</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-penjualan-hari-ini">
-                        </tbody>
-                </table>
-            </div>
-        </div>
+       <div class="laporan-box">
+    <h3>Daftar Log Transaksi</h3>
+    
+    <div style="margin-bottom: 20px; text-align: left;">
+        <label for="filter-tanggal" style="font-weight: 600; margin-right: 10px;">Pilih Tanggal: </label>
+        <input type="date" id="filter-tanggal" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+    </div>
+
+    <div class="laporan-box">
+    <h3>Daftar Log Transaksi</h3>
+    
+    <div style="margin-bottom: 20px; text-align: left;">
+        <label for="filter-tanggal" style="font-weight: 600; margin-right: 10px;">Pilih Tanggal: </label>
+        <input type="date" id="filter-tanggal" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+    </div>
+
+    <div class="table-responsive">
+        <table id="tabel-penjualan">
+            <thead>
+                <tr>
+                    <th>Waktu / Tanggal</th> <th>Nama Produk</th>
+                    <th>Harga Total</th>
+                    <th>Petugas / Sumber</th>
+                </tr>
+            </thead>
+            <tbody id="data-penjualan-hari-ini">
+            </tbody>
+        </table>
+    </div>
     </section>
 
     <footer>

@@ -108,9 +108,52 @@ function bukaDashboard(role) {
         fiturOwner.style.display = 'none';
     }
 
-    muatTabelLaporanPenjualan();
+    // FITUR BARU: Otomatis set kalender ke tanggal hari ini saat dashboard dibuka
+    const inputTanggal = document.getElementById('filter-tanggal');
+    const hariIni = new Date();
+    const yyyy = hariIni.getFullYear();
+    const mm = String(hariIni.getMonth() + 1).padStart(2, '0');
+    const dd = String(hariIni.getDate()).padStart(2, '0');
+    inputTanggal.value = `${yyyy}-${mm}-${dd}`;
+
+    // Muat data berdasarkan tanggal yang ada di kalender
+    muatTabelLaporanPenjualan(hariIni.toDateString());
     window.scrollTo(0, 0);
 }
+
+function muatTabelLaporanPenjualan(tanggalDicari) {
+    const listTransaksi = JSON.parse(localStorage.getItem('transaksi_kupilihrasa')) || [];
+    const tbody = document.getElementById('data-penjualan-hari-ini');
+    
+    tbody.innerHTML = ""; 
+
+    // Filter data berdasarkan tanggalKey yang dipilih user
+    const transaksiTerfilter = listTransaksi.filter(item => item.tanggalKey === tanggalDicari);
+
+    if (transaksiTerfilter.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#888;">Tidak ada pesanan tercatat pada tanggal ini.</td></tr>`;
+        return;
+    }
+
+    // Tampilkan data (terbaru di atas)
+    transaksiTerfilter.reverse().forEach(item => {
+        const row = document.createElement('tr');
+        // Menampilkan jam + tanggal lengkap di kolom pertama agar jelas
+        row.innerHTML = `
+            <td>${item.waktu}</td>
+            <td><strong>${item.produk}</strong></td>
+            <td>Rp ${item.harga.toLocaleString('id-ID')}</td>
+            <td><span class="badge-staff">${item.loggedBy}</span></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// FITUR BARU: Event Listener ketika user mengubah tanggal di kalender
+document.getElementById('filter-tanggal').addEventListener('change', function() {
+    const tanggalDipilih = new Date(this.value).toDateString();
+    muatTabelLaporanPenjualan(tanggalDipilih);
+});
 
 function hitungOmsetHarian() {
     const listTransaksi = JSON.parse(localStorage.getItem('transaksi_kupilihrasa')) || [];
