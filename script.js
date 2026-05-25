@@ -21,22 +21,29 @@ function tambahKeKeranjang(namaProduk, harga) {
 
 // Fungsi internal menyimpan logs transaksi ke Local Storage
 function simpanKeLocalStorage(namaProduk, harga, sumber) {
-    let listTransaksi = JSON.parse(localStorage.getItem('transaksi_kupilihrasa')) || [];
-    
-    const waktuSekarang = new Date();
-    const dataBaru = {
-        waktu: waktuSekarang.toLocaleString('id-ID'),
-        tanggalKey: waktuSekarang.toDateString(),
-        produk: namaProduk,
-        harga: parseInt(harga),
-        loggedBy: sumber
-    };
+    // 1. Siapkan bungkusan paket data
+    let dataKirim = new FormData();
+    dataKirim.append('produk', namaProduk);
+    dataKirim.append('harga', harga);
+    dataKirim.append('logged_by', sumber);
 
-    listTransaksi.push(dataBaru);
-    localStorage.setItem('transaksi_kupilihrasa', JSON.stringify(listTransaksi));
+    // 2. Tembak/kirim paket data ke file PHP tujuan
+    fetch('simpan_transaksi.php', {
+        method: 'POST', 
+        body: dataKirim 
+    })
+    // 3. Cek respon dari server
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            console.log("Mantap! Data berhasil masuk MySQL.");
+        } else {
+            console.error("Gagal mengirim: ", data.message);
+        }
+    })
+    .catch(error => console.error("Ada error jaringan:", error));
 }
 
-// Menyimpan input penjualan manual offline dari dashboard
 function simpanTransaksiManual(e) {
     e.preventDefault();
     const namaProduk = document.getElementById('manual-nama-produk').value.trim();
@@ -45,11 +52,12 @@ function simpanTransaksiManual(e) {
     simpanKeLocalStorage(namaProduk, hargaProduk, `Manual (${sessionRoleAktif})`);
     document.getElementById('form-penjualan-manual').reset();
 
-    if (sessionRoleAktif === "Owner") {
-        hitungOmsetHarian();
-    }
-    muatTabelLaporanPenjualan();
-    alert("Transaksi offline berhasil disimpan!");
+    // Beri jeda sedikit (500ms) agar data masuk MySQL dulu, lalu refresh tabel otomatis
+    setTimeout(() => {
+        const inputTanggal = document.getElementById('filter-tanggal').value;
+        muatTabelLaporanPenjualan(inputTanggal);
+        alert("Transaksi offline berhasil disimpan!");
+    }, 500);
 }
 
 // Logika Smooth Scroll Menu Utama
@@ -108,7 +116,6 @@ function bukaDashboard(role) {
         fiturOwner.style.display = 'none';
     }
 
-    // FITUR BARU: Otomatis set kalender ke tanggal hari ini saat dashboard dibuka
     const inputTanggal = document.getElementById('filter-tanggal');
     const hariIni = new Date();
     const yyyy = hariIni.getFullYear();
@@ -117,36 +124,54 @@ function bukaDashboard(role) {
     inputTanggal.value = `${yyyy}-${mm}-${dd}`;
 
     // Muat data berdasarkan tanggal yang ada di kalender
-    muatTabelLaporanPenjualan(hariIni.toDateString());
+    muatTabelLaporanPenjualan(`${yyyy}-${mm}-${dd}`);
     window.scrollTo(0, 0);
 }
 
 function muatTabelLaporanPenjualan(tanggalDicari) {
-    const listTransaksi = JSON.parse(localStorage.getItem('transaksi_kupilihrasa')) || [];
-    const tbody = document.getElementById('data-penjualan-hari-ini');
-    
-    tbody.innerHTML = ""; 
-
-    // Filter data berdasarkan tanggalKey yang dipilih user
-    const transaksiTerfilter = listTransaksi.filter(item => item.tanggalKey === tanggalDicari);
-
-    if (transaksiTerfilter.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#888;">Tidak ada pesanan tercatat pada tanggal ini.</td></tr>`;
-        return;
+    // Jika parameter tanggalDicari kosong, ambil dari value input kalender
+    if (!tanggalDicari) {
+        const inputTanggal = document.getElementById('filter-tanggal').value;
+        // Jika input kalender juga kosong/belum siap, handle dengan tanggal hari ini
+        if (!inputTanggal) return;
+        tanggalDicari = inputTanggal; 
     }
 
-    // Tampilkan data (terbaru di atas)
-    transaksiTerfilter.reverse().forEach(item => {
-        const row = document.createElement('tr');
-        // Menampilkan jam + tanggal lengkap di kolom pertama agar jelas
-        row.innerHTML = `
-            <td>${item.waktu}</td>
-            <td><strong>${item.produk}</strong></td>
-            <td>Rp ${item.harga.toLocaleString('id-ID')}</td>
-            <td><span class="badge-staff">${item.loggedBy}</span></td>
-        `;
-        tbody.appendChild(row);
-    });
+document.getElementById('filter-tanggal').addEventListener('change', function() {
+    // Langsung kirim value dari input date (formatnya sudah YYYY-MM-DD)
+    muatTabelLaporanPenjualan(this.value);
+});
+    
+    // Ambil data dari database MySQL lewat PHP menggunakan Fetch API
+    fetch(`ambil_transaksi.php?tanggal=${tanggalDicari}`)
+    .then(response => response.json())
+    .then(data => {
+        tbody.innerHTML = ""; 
+
+        // 1. Update Total Omset (Khusus jika yang login adalah Owner)
+        if (sessionRoleAktif === "Owner") {
+            document.getElementById('total-omset-hari-ini').innerText = `Rp ${data.totalOmset.toLocaleString('id-ID')}`;
+        }
+
+        // 2. Jika data kosong, tampilkan pesan
+        if (data.transaksi.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#888;">Tidak ada pesanan tercatat pada tanggal ini.</td></tr>`;
+            return;
+        }
+
+        // 3. Tampilkan data dari MySQL ke dalam tabel HTML
+        data.transaksi.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.waktu}</td>
+                <td><strong>${item.produk}</strong></td>
+                <td>Rp ${item.harga.toLocaleString('id-ID')}</td>
+                <td><span class="badge-staff">${item.loggedBy}</span></td>
+            `;
+            tbody.appendChild(row);
+        });
+    })
+    .catch(error => console.error("Gagal memuat data dari MySQL:", error));
 }
 
 // FITUR BARU: Event Listener ketika user mengubah tanggal di kalender
