@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = ""; // Kosongkan jika menggunakan XAMPP bawaan
-$db   = "db_kupilih_rasa";
+$host = "sql111.infinityfree.com"; // Sesuaikan jika berbeda di tabel MySQL Databases kamu
+$user = "if0_42029754"; 
+$pass = "kupilihrasa26"; // Password akun hosting InfinityFree milikmu
+$db   = "if0_42029754_db_kupilih"; // Masukkan nama lengkap databasemu yang ada di panel kiri tadi
 
 $koneksi = mysqli_connect($host, $user, $pass, $db);
 

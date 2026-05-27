@@ -321,41 +321,34 @@
             </form>
         </div>
 
-       <div class="laporan-box">
-    <h3>Daftar Log Transaksi</h3>
-    
-    <div style="margin-bottom: 20px; text-align: left;">
-        <label for="filter-tanggal" style="font-weight: 600; margin-right: 10px;">Pilih Tanggal: </label>
-        <input type="date" id="filter-tanggal" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
-    </div>
-
     <div class="laporan-box">
-    <h3>Daftar Log Transaksi</h3>
-    
-    <div style="margin-bottom: 20px; text-align: left;">
-        <label for="filter-tanggal" style="font-weight: 600; margin-right: 10px;">Pilih Tanggal: </label>
-        <input type="date" id="filter-tanggal" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
-    </div>
+            <h3>Daftar Log Transaksi</h3>
+            
+            <div style="margin-bottom: 20px; text-align: left;">
+                <label for="filter-tanggal" style="font-weight: 600; margin-right: 10px;">Pilih Tanggal: </label>
+                <input type="date" id="filter-tanggal" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+            </div>
 
-    <div class="table-responsive">
-        <table id="tabel-penjualan">
-            <thead>
-                <tr>
-                    <th>Waktu / Tanggal</th> <th>Nama Produk</th>
-                    <th>Harga Total</th>
-                    <th>Petugas / Sumber</th>
-                </tr>
-            </thead>
-            <tbody id="data-penjualan-hari-ini">
-            </tbody>
-        </table>
-    </div>
-    </section>
+            <div class="table-responsive">
+                <table id="tabel-penjualan">
+                    <thead>
+                        <tr>
+                            <th>Waktu / Tanggal</th> 
+                            <th>Nama Produk</th>
+                            <th>Harga Total</th>
+                            <th>Petugas / Sumber</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-penjualan-hari-ini">
+                    </tbody>
+                </table>
+            </div>
+        </div> </section>
 
     <footer>
         <p>&copy 2026 Kupilih Rasa. Dibuat dengan ❤️</p>
     </footer>
-
+    
     <a href="https://wa.me/62895327556000" class="wa-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
