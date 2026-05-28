@@ -6,16 +6,142 @@ const AKUN_INTERNAL = {
 
 let sessionRoleAktif = "";
 
-// Fungsi pembeli online lewat tombol WA
-function tambahKeKeranjang(namaProduk, harga) {
-    const nomorWA = "62895327556000"; 
-    const pesan = `Halo Kupilih Rasa, saya ingin memesan: *${namaProduk}*. Mohon informasi detailnya ya!`;
-    const linkWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
-    
-    // Otomatis tercatat di sistem backend MySQL
-    simpanKeDatabase(namaProduk, harga, "Pembeli (WA)");
+// =========================================================
+/* SISTEM MANAJEMEN KERANJANG BELANJA (KUPILIH RASA)        */
+// =========================================================
+let dataKeranjang = [];
 
-    alert(`Mengarahkan Anda ke WhatsApp untuk memesan ${namaProduk}...`);
+// 1. Fungsi memasukkan produk ke array keranjang (Nama disamakan dengan HTML lama Anda)
+function tambahKeKeranjang(namaProduk, harga) {
+    // Cek apakah produk sudah pernah dimasukkan sebelumnya
+    const indexSama = dataKeranjang.findIndex(item => item.produk === namaProduk);
+
+    if (indexSama > -1) {
+        // Jika sudah ada, tambahkan quantity-nya saja
+        dataKeranjang[indexSama].qty += 1;
+    } else {
+        // Jika belum ada, buat objek baru dalam array
+        dataKeranjang.push({
+            produk: namaProduk,
+            harga: harga,
+            qty: 1
+        });
+    }
+
+    // Refresh visual tampilan keranjang
+    updateTampilanKeranjang();
+    
+    // Tampilkan tombol keranjang melayang (floating) karena sudah ada isinya
+    document.getElementById('btn-keranjang-floating').style.display = 'flex';
+    
+    // Opsional: Beri notifikasi kecil agar pembeli tahu item berhasil masuk keranjang
+    alert(`${namaProduk} berhasil ditambahkan ke keranjang!`);
+}
+
+// 2. Fungsi merubah Qty (Tambah / Kurang) di dalam panel keranjang
+function ubahQtyItem(namaProduk, perubahan) {
+    const index = dataKeranjang.findIndex(item => item.produk === namaProduk);
+    if (index === -1) return;
+
+    dataKeranjang[index].qty += perubahan;
+
+    // Jika qty menjadi 0 atau kurang, hapus item dari daftar keranjang
+    if (dataKeranjang[index].qty <= 0) {
+        dataKeranjang.splice(index, 1);
+    }
+
+    updateTampilanKeranjang();
+}
+
+// 3. Fungsi sinkronisasi data Array ke komponen HTML UI
+function updateTampilanKeranjang() {
+    const listContainer = document.getElementById('list-item-keranjang');
+    const badgeCount = document.getElementById('badge-keranjang-count');
+    const jumlahItemHeader = document.getElementById('jumlah-item-keranjang');
+    const txtTotalHarga = document.getElementById('total-harga-keranjang');
+
+    if(!listContainer) return;
+
+    listContainer.innerHTML = "";
+    let totalHarga = 0;
+    let totalItems = 0;
+
+    dataKeranjang.forEach(item => {
+        const subTotal = item.harga * item.qty;
+        totalHarga += subTotal;
+        totalItems += item.qty;
+
+        const divItem = document.createElement('div');
+        divItem.className = 'item-keranjang';
+        divItem.innerHTML = `
+            <div class="detail-item-keranjang">
+                <h4>${item.produk}</h4>
+                <span>Rp ${subTotal.toLocaleString('id-ID')}</span>
+            </div>
+            <div class="kontrol-qty">
+                <button onclick="ubahQtyItem('${item.produk}', -1)">-</button>
+                <span>${item.qty}</span>
+                <button onclick="ubahQtyItem('${item.produk}', 1)">+</button>
+            </div>
+        `;
+        listContainer.appendChild(divItem);
+    });
+
+    // Update Angka Atribut Info
+    if(badgeCount) badgeCount.innerText = totalItems;
+    if(jumlahItemHeader) jumlahItemHeader.innerText = totalItems;
+    if(txtTotalHarga) txtTotalHarga.innerText = `Rp ${totalHarga.toLocaleString('id-ID')}`;
+
+    // Sembunyikan floating button & panel box jika keranjang kosong total
+    if (dataKeranjang.length === 0) {
+        document.getElementById('area-keranjang').style.display = 'none';
+        document.getElementById('btn-keranjang-floating').style.display = 'none';
+    }
+}
+
+// 4. Fungsi buka-tutup kontainer keranjang belanja
+function toggleKeranjang() {
+    const keranjangBox = document.getElementById('area-keranjang');
+    if (keranjangBox.style.display === 'none' || keranjangBox.style.display === '') {
+        keranjangBox.style.display = 'flex';
+    } else {
+        keranjangBox.style.display = 'none';
+    }
+}
+
+// 5. Fungsi checkout menyusun pesan dan mengirimkannya ke WhatsApp resmi
+function kirimKeranjangKeWA() {
+    if (dataKeranjang.length === 0) {
+        alert("Keranjang Anda masih kosong!");
+        return;
+    }
+
+    const nomorWA = "62895327556000"; 
+    let teksPesanan = `Halo Kupilih Rasa, saya ingin memesan menu berikut:\n\n`;
+    let totalAkhir = 0;
+
+    // Loop data keranjang untuk menyusun teks WA & merekam logs database harian
+    dataKeranjang.forEach((item, index) => {
+        const subTotal = item.harga * item.qty;
+        totalAkhir += subTotal;
+        teksPesanan += `${index + 1}. *${item.produk}* (x${item.qty}) - Rp ${subTotal.toLocaleString('id-ID')}\n`;
+        
+        // Memanggil fungsi simpanKeDatabase bawaan Anda untuk dicatat ke MySQL
+        simpanKeDatabase(item.produk, subTotal, "Pembeli (WA)");
+    });
+
+    teksPesanan += `\n*Total Pembayaran: Rp ${totalAkhir.toLocaleString('id-ID')}*\n\nMohon informasi detail pembayarannya ya!`;
+
+    const linkWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(teksPesanan)}`;
+    
+    alert("Pesanan berhasil dicatat ke sistem! Mengarahkan Anda ke WhatsApp...");
+    
+    // Reset keranjang setelah selesai dialihkan
+    dataKeranjang = [];
+    updateTampilanKeranjang();
+    document.getElementById('area-keranjang').style.display = 'none';
+
+    // Buka tautan WhatsApp di tab baru
     window.open(linkWA, '_blank');
 }
 
@@ -179,4 +305,39 @@ function logoutDashboard() {
     document.getElementById('dashboard-section').style.display = 'none';
     document.getElementById('konten-landing').style.display = 'block';
     window.scrollTo(0, 0);
+}
+
+// Variabel global untuk menyimpan data produk yang sedang dipilih variannya
+let produkSedangDipilih = "";
+let hargaProdukSedangDipilih = 0;
+
+// Fungsi untuk membuka pop-up varian
+function bukaModalVarian(namaProduk, harga) {
+    produkSedangDipilih = namaProduk;
+    hargaProdukSedangDipilih = harga;
+    
+    // Update text judul di dalam modal
+    document.getElementById('varian-title-produk').innerText = `Varian ${namaProduk}`;
+    
+    // Tampilkan modal varian
+    document.getElementById('modal-varian').style.display = 'flex';
+}
+
+// Fungsi untuk menutup pop-up varian
+function tutupModalVarian() {
+    document.getElementById('modal-varian').style.display = 'none';
+    produkSedangDipilih = "";
+    hargaProdukSedangDipilih = 0;
+}
+
+// Fungsi ketika salah satu varian diklik
+function pilihVarianSelesai(namaVarian) {
+    // Gabungkan nama produk dengan variannya, contoh: "Potato Curly (Saos Pedas)"
+    const namaLengkapProduk = `${produkSedangDipilih} (${namaVarian})`;
+    
+    // Panggil fungsi keranjang bawaan yang sudah ada di script.js Anda
+    tambahKeKeranjang(namaLengkapProduk, hargaProdukSedangDipilih);
+    
+    // Tutup kembali modalnya secara otomatis
+    tutupModalVarian();
 }

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Jakarta")
 $host = "sql111.infinityfree.com"; // Sesuaikan jika berbeda di tabel MySQL Databases kamu
 $user = "if0_42029754"; 
 $pass = "kupilihrasa26"; // Password akun hosting InfinityFree milikmu
