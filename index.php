@@ -380,6 +380,6 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="script.js?v=1.1"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
