@@ -6,6 +6,9 @@ const AKUN_INTERNAL = {
 
 let sessionRoleAktif = "";
 
+// =========================================================
+/* SISTEM MANAJEMEN KERANJANG BELANJA (KUPILIH RASA)        */
+// =========================================================
 let dataKeranjang = [];
 
 // 1. Fungsi memasukkan produk ke array keranjang (Nama disamakan dengan HTML lama Anda)
@@ -51,7 +54,7 @@ function ubahQtyItem(namaProduk, perubahan) {
 }
 
 // 3. Fungsi sinkronisasi data Array ke komponen HTML UI
-function masukKeranjang() {
+function updateTampilanKeranjang() {
     const listContainer = document.getElementById('list-item-keranjang');
     const badgeCount = document.getElementById('badge-keranjang-count');
     const jumlahItemHeader = document.getElementById('jumlah-item-keranjang');
