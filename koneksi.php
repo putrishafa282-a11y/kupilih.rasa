@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
-$host = "sql111.infinityfree.com"; // Sesuaikan jika berbeda di tabel MySQL Databases kamu
+$host = "sql111.infinityfree.com"; 
 $user = "if0_42029754"; 
-$pass = "kupilihrasa26"; // Password akun hosting InfinityFree milikmu
-$db   = "if0_42029754_db_kupilih"; // Masukkan nama lengkap databasemu yang ada di panel kiri tadi
+$pass = "kupilihrasa26"; 
+$db   = "if0_42029754_db_kupilih"; 
 
 $koneksi = mysqli_connect($host, $user, $pass, $db);
 

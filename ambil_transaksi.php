@@ -1,34 +1,44 @@
 <?php
+// ambil_transaksi.php
 include 'koneksi.php';
 
-// Ambil tanggal yang dikirim oleh JavaScript, jika tidak ada, default ke hari ini
-$tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : date('Y-m-d');
+header('Content-Type: application/json');
 
-// Query untuk mengambil data transaksi pada tanggal tersebut (Urutan terbaru di atas)
-$query = "SELECT waktu, produk, harga, logged_by FROM transaksi WHERE tanggal_key = '$tanggal' ORDER BY id DESC";
+// Jika parameter tanggal tidak diisi, otomatis gunakan tanggal hari ini (WIB)
+$tanggal = isset($_GET['tanggal']) ? mysqli_real_escape_string($koneksi, $_GET['tanggal']) : date('Y-m-d');
+
+$query = "SELECT id, waktu, produk, harga, logged_by FROM transaksi WHERE tanggal_key = '$tanggal' ORDER BY id DESC";
 $result = mysqli_query($koneksi, $query);
 
 $list_transaksi = [];
 $total_omset = 0;
 
-while ($row = mysqli_fetch_assoc($result)) {
-    // Format waktu agar hanya menampilkan Jam:Menit:Detik atau sesuai kebutuhan
-    $format_waktu = date('H:i:s', strtotime($row['waktu']));
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Mengonversi waktu dari database ke format jam (H:i:s)
+        $format_waktu = date('H:i:s', strtotime($row['waktu']));
+        
+        $list_transaksi[] = [
+            'id' => $row['id'],
+            'waktu' => $format_waktu,
+            'produk' => $row['produk'],
+            'harga' => (int)$row['harga'],
+            'loggedBy' => $row['logged_by']
+        ];
+        
+        $total_omset += $row['harga'];
+    }
     
-    $list_transaksi[] = [
-        'waktu' => $format_waktu,
-        'produk' => $row['produk'],
-        'harga' => (int)$row['harga'],
-        'loggedBy' => $row['logged_by']
-    ];
-    
-    // Hitung total omset harian
-    $total_omset += $row['harga'];
+    echo json_encode([
+        "transaksi" => $list_transaksi,
+        "totalOmset" => $total_omset
+    ]);
+} else {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Gagal mengambil data: " . mysqli_error($koneksi),
+        "transaksi" => [],
+        "totalOmset" => 0
+    ]);
 }
-
-// Kirimkan hasilnya ke JavaScript
-echo json_encode([
-    "transaksi" => $list_transaksi,
-    "totalOmset" => $total_omset
-]);
 ?>

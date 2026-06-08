@@ -12,7 +12,21 @@
     <header>
         <nav>
             <div class="logo">Kupilih<span>.Rasa</span></div>
-            <ul>
+        
+            <div class="nav-actions-hp">
+            <!-- Ikon Keranjang Belanja: Langsung Muncul di Navbar HP -->
+                <a href="#" class="btn-keranjang-nav" onclick="bukaPopupKeranjang(event)">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="badge-keranjang-count" class="badge-count">0</span>
+                </a>
+
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+            </div>
+
+        <!-- Daftar Menu Gantung (Hanya isi Home, Menu, Cara Pesan, Portal Staff) -->
+            <ul id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#menu-utama">Menu</a></li>
                 <li><a href="#cara-pesan">Cara Pesan</a></li>
@@ -34,49 +48,49 @@
             <section class="menu-container">
                 <h2>RISOL RAINBOW</h2>
                 <p>Satu risol, enam sensasi! Nikmati varian rasa lengkap mulai dari manisnya Matcha, Choco, Taro, Red Velvet dan Tiramisu.</p>
-                <div class="grid-menu">
+                <div class="grid-menu grid-risol">
                     <div class="card">
                         <div class="badge">BEST SELLER</div>
                         <img src="images/risol-matcha.png" alt="Risol Matcha Cheese">
                         <h3>Risol Matcha Cheese</h3>
                         <p>Isian lumer dengan balutan glaze matcha yang manis dan parutan keju.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Risol Matcha Cheese', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Matcha Cheese', 3000)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/risol-choco-cheese.png" alt="Risol Choco Cheese">
                         <h3>Risol Choco Cheese</h3>
                         <p>Cokelat melimpah yang lumer dengan perpaduan parutan keju di setiap gigitan.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Risol Choco Cheese', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Choco Cheese', 3000)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/risol-taro.png" alt="Risol Taro Cheese">
                         <h3>Risol Taro Cheese</h3>
                         <p>Perpaduan unik rasa Taro yang milky dengan gurihnya keju melimpah.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Risol Taro Cheese', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Taro Cheese', 3000)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/risol-red-velvet.png" alt="Risol Red Velvet Oreo">
                         <h3>Risol Red Velvet Oreo</h3>
                         <p>Perpaduan mewah glaze Red Velvet lembut dengan isian bubuk oreo yang renyah.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Risol Red Velvet Oreo', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Red Velvet Oreo', 3000)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/risol-choco-oreo.png" alt="Risol Choco Oreo">
                         <h3>Risol Choco Oreo</h3>
                         <p>Cokelat melimpah yang lumer dengan perpaduan bubuk oreo di setiap gigitan.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Risol Choco Oreo', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Choco Oreo', 3000)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/risol-tiramisu.png" alt="Risol Tiramisu Oreo">
                         <h3>Risol Tiramisu Oreo</h3>
                         <p>Sensasi elegan aroma Tiramisu premium bertemu dengan taburan Oreo yang crunchy.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Risol Tiramisu Oreo', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Risol Tiramisu Oreo', 3000)">Pesan Sekarang</button>
                     </div>
                 </div>
             </section>
@@ -84,13 +98,13 @@
             <section class="menu-container">
                 <h2>CISTIK-ACI STIK</h2>
                 <p>Camilan krispi dengan isian ayam suwir gurih yang melimpah!</p>
-                <div class="grid-menu">
-                    <div class="card">
+                <div class="grid-menu" style="justify-content: center;">
+                    <div class="card" style="max-width: 320px; margin: 0 auto;">
                         <img src="images/cistik-ayam-suwir.png" alt="CISTIK Ayam Suwir">
                         <h3>CISTIK Ayam Suwir</h3>
                         <p>Isian ayam suwir premium yang gurih dan lembut di setiap gigitan.</p>
                         <span class="harga">Rp 3.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('CISTIK Ayam Suwir', 3000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="bukaModalVarian('CISTIK Ayam Suwir', 3000)">Pilih Varian</button>
                     </div>
                 </div>
             </section>
@@ -147,28 +161,68 @@
                         <h3>Siomay Gubis</h3>
                         <p>Sensasi kenyal adonan dalam balutan kubis segar.</p>
                         <span class="harga">Rp 500</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Siomay Gubis', 500)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Siomay Gubis', 500)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/pentol-kabul.png" alt="Pentol Kabul">
                         <h3>Pentol Kabul</h3>
                         <p>Cari jajanan murah tapi rasa mewah? Pentol Kabul solusinya!</p>
                         <span class="harga">Rp 500</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Pentol Kabul', 500)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Pentol Kabul', 500)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/tahu-aci.png" alt="Tahu Aci">
                         <h3>Tahu Aci</h3>
                         <p>Cocok untuk stok camilan. Dicocol sambal makin mantap!</p>
                         <span class="harga">Rp 500</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Tahu Aci', 500)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Tahu Aci', 500)">Pesan Sekarang</button>
                     </div>
                     <div class="card">
                         <img src="images/siomay.png" alt="Siomay">
                         <h3>Siomay</h3>
                         <p>Lebih lengkap, lebih mantap dengan Siomay!</p>
                         <span class="harga">Rp 500</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Siomay', 500)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Siomay', 500)">Pesan Sekarang</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="menu-container">
+                <h2>ICE MATCHA</h2>
+                <div class="grid-menu">
+                    <div class="card">
+                        <img src="images/matcha-regular.png" alt="Ice Matcha Regular" class="img-matcha-coklat">
+                        <h3>Ice Matcha Regular</h3>
+                        <p>Matcha manis yang segar dan ringan.</p>
+                        <span class="harga">Rp 5.000</span>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Matcha Regular', 5000)">Pesan Sekarang</button>
+                    </div>
+                    <div class="card">
+                        <img src="images/matcha-premium.png" alt="Ice Matcha Premium" class="img-matcha-coklat">
+                        <h3>Ice Matcha Premium</h3>
+                        <p>Matcha manis yang ekstra creamy.</p>
+                        <span class="harga">Rp 7.000</span>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Matcha Premium', 7000)">Pesan Sekarang</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="menu-container">
+                <h2>ICE CHOCOLATE</h2>
+                <div class="grid-menu">
+                    <div class="card">
+                        <img src="images/choco-normal.png" alt="Choco Normal" class="img-matcha-coklat">
+                        <h3>Choco Normal</h3>
+                        <p>Nikmati kemewahan rasa cokelat premium yang pekat, dingin, dan bertekstur. Pure chocolate bliss!</p>
+                        <span class="harga">Rp 5.000</span>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Choco Normal', 5000)">Pesan Sekarang</button>
+                    </div> 
+                        <div class="card">
+                        <img src="images/choco-oreo.png" alt="Choco Oreo" class="img-matcha-coklat">
+                        <h3>Choco Oreo</h3>    
+                        <p>Nikmati sensasi ledakan cokelat dengan sentuhan renyah Oreo di setiap tegukan.</p>
+                        <span class="harga">Rp 7.000</span>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Choco Oreo', 7000)">Pesan Sekarang</button>
                     </div>
                 </div>
             </section>
@@ -182,72 +236,86 @@
                         <h3>Nescafe Klepon</h3>
                         <p>Paduan kopi creamy, wangi pandan, dan manisnya gula aren yang legit.</p>
                         <span class="harga">Rp 10.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Klepon', 10000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Klepon', 10000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/dalgona.png" alt="Nescafe Dalgona">
                         <h3>Nescafe Dalgona</h3>
                         <p>Nikmati perpaduan sempurna kopi hitam pilihan dengan tekstur creamy foam.</p>
                         <span class="harga">Rp 10.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Dalgona', 10000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Dalgona', 10000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/neslo.png" alt="NESLO Nescafe x Milo">
                         <h3>NESLO Nescafe x Milo</h3>
                         <p>Perpaduan sempurna antara tendangan kopi Nescafe dan kelezatan Milo.</p>
                         <span class="harga">Rp 10.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('NESLO', 10000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('NESLO', 10000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/nestle-lemon-tea.png" alt="Nestea Lemon Tea">
                         <h3>Nestea Lemon Tea</h3>
                         <p>Perpaduan teh pilihan dengan ekstrak lemon asli.</p>
                         <span class="harga">Rp 5.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nestea Lemon Tea', 5000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nestea Lemon Tea', 5000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/nestle-lemonade.png" alt="Nestle Lemonade">
                         <h3>Nestle Lemonade</h3>
                         <p>Ledakan rasa lemon yang fresh dan bikin mata langsung melek!</p>
                         <span class="harga">Rp 5.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nestle Lemonade', 5000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nestle Lemonade', 5000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/nestle-blackcurrant.png" alt="Nestle Blackcurrant">
                         <h3>Nestle Blackcurrant</h3>
                         <p>Kombinasi rasa manis-asam yang pas dari buah beri.</p>
                         <span class="harga">Rp 5.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nestle Blackcurrant', 5000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nestle Blackcurrant', 5000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/nestle-milo.png" alt="Nestle Milo">
                         <h3>Nestle Milo</h3>
                         <p>Nikmati segelas Nestlé Milo dengan rasa cokelat yang khas.</p>
                         <span class="harga">Rp 10.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nestle Milo', 10000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nestle Milo', 10000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/coffee-latte.png" alt="Nescafe Caffe Latte">
-                        <h3>Nescafe Caffe Latte</h3>
+                        <h3>Nescafe Coffee Latte</h3>
                         <h4>Normal</h4>
+                        <p>Lebih smooth, creamy, dan manisnya pas. Cocok buat santai.</p>
                         <span class="harga">Rp 9.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Caffe Latte Normal', 9000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Caffe Latte Normal', 9000)">Pesan Sekarang</button>
                         <h4 style="margin-top:10px;">Strong</h4>
+                        <p>Kopinya lebih pekat, mantap, dan bold. Pas buat usir ngantuk & fokus ekstra.</p>
                         <span class="harga">Rp 11.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Caffe Latte Strong', 11000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Caffe Latte Strong', 11000)">Pesan Sekarang</button>
                     </div>
+
                     <div class="card">
                         <img src="images/ice-roast.png" alt="Nescafe Ice Roast">
                         <h3>Nescafe Ice Roast</h3>
+                        <p>Kopi segar yang langsung larut di air dingin. Pilih tingkat kekuatan kopimu:</p>
                         <h4>1 Shoot</h4>
+                        <p>Ringan, smooth, dan ramah di lidah. Cocok buat santai.</p>
                         <span class="harga">Rp 5.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Ice Roast 1 Shoot', 5000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Ice Roast 1 Shoot', 5000)">Pesan Sekarang</button>
                         <h4 style="margin-top:10px;">2 Shoot</h4>
+                        <p>Pas, seimbang, dan mantap untuk nemenin aktivitas harian.</p>
                         <span class="harga">Rp 7.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Ice Roast 2 Shoot', 7000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Ice Roast 2 Shoot', 7000)">Pesan Sekarang</button>
                         <h4 style="margin-top:10px;">3 Shoot</h4>
+                        <p>Pekat, bold, dan kuat. Pas buat usir ngantuk & fokus ekstra.</p>
                         <span class="harga">Rp 9.000</span>
-                        <button class="btn-pesan" onclick="masukKeranjang('Nescafe Ice Roast 3 Shoot', 9000)">Pesan Sekarang</button>
+                        <button class="btn-pesan" onclick="tambahKeKeranjang('Nescafe Ice Roast 3 Shoot', 9000)">Pesan Sekarang</button>
                     </div>
                 </div>
             </section>
@@ -259,17 +327,17 @@
                 <div class="langkah">
                     <i class="fas fa-search"></i>
                     <h4>1. Pilih Menu</h4>
-                    <p>Pilih menu favoritmu dari katalog kami.</p>
+                    <p>Klik menu favoritmu untuk memasukkannya ke dalam keranjang belanja.</p>
+                </div>
+                <div class="langkah">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>2. Cek Keranjang</h4>
+                    <p>Atur jumlah pesananmu langsung melalui popup keranjang yang muncul.</p>
                 </div>
                 <div class="langkah">
                     <i class="fab fa-whatsapp"></i>
-                    <h4>2. Klik Pesan</h4>
-                    <p>Tombol akan mengarahkanmu langsung ke WhatsApp kami.</p>
-                </div>
-                <div class="langkah">
-                    <i class="fas fa-truck"></i>
-                    <h4>3. Kirim / Ambil</h4>
-                    <p>Pesanan siap diantar atau diambil di outlet terdekat.</p>
+                    <h4>3. Checkout di Atas</h4>
+                    <p>Klik tombol WhatsApp di bagian atas keranjang untuk mengirimkan rincian pesanan.</p>
                 </div>
             </div>
         </section>
@@ -338,39 +406,86 @@
                     <thead>
                         <tr>
                             <th>Waktu / Tanggal</th> 
+                            <th>Nama Customer</th>
                             <th>Nama Produk</th>
                             <th>Harga Total</th>
                             <th>Petugas / Sumber</th>
+                            <th>Aksi</th> <!-- Tambahkan kolom Th ini -->
                         </tr>
                     </thead>
-                    <tbody id="data-penjualan-hari-ini">
-                    </tbody>
+                    <tbody id="data-penjualan-hari-ini"></tbody>
                 </table>
             </div>
         </div> </section>
 
-    <div id="area-keranjang" class="keranjang-container" style="display: none;">
-    <div class="keranjang-header">
-        <h3><i class="fas fa-shopping-cart"></i> Keranjang Belanja (<span id="jumlah-item-keranjang">0</span>)</h3>
-        <span class="tutup-keranjang" onclick="toggleKeranjang()">&times;</span>
-    </div>
-    <div id="list-item-keranjang" class="list-item-keranjang">
-        </div>
-    <div class="keranjang-footer">
-        <div class="total-bayar-keranjang">
-            <span>Total:</span>
-            <span id="total-harga-keranjang">Rp 0</span>
-        </div>
-        <button class="btn-checkout-wa" onclick="kirimKeranjangKeWA()">
-            <i class="fab fa-whatsapp"></i> Kirim Pesanan via WhatsApp
-        </button>
-    </div>
-</div>
+        <!-- ... Potongan kode area-keranjang bawaan ... -->
+        <div id="area-keranjang" class="modal">
+            <div class="modal-content" style="max-width: 450px; text-align: left; padding: 25px;">
+                <span class="close-modal" onclick="tutupPopupKeranjang()">&times;</span>
 
-<div id="btn-keranjang-floating" class="keranjang-float" onclick="toggleKeranjang()" style="display: none;">
-    <i class="fas fa-shopping-basket"></i>
-    <span id="badge-keranjang-count" class="badge-count">0</span>
-</div>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <i class="fas fa-shopping-basket" style="font-size: 2.2rem; color: var(--warna-utama); margin-bottom: 10px;"></i>
+                    <h3 style="font-size: 1.4rem; color: var(--warna-gelap); font-weight: 700; margin-bottom: 15px;">Keranjang Belanja</h3>
+                </div>
+
+                <!-- TAMBAHAN: PILIHAN METODE PEMBAYARAN -->
+                <div style="margin-bottom: 15px; background: #f8f9fa; padding: 12px; border-radius: 8px;">
+                    <label style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 8px;">Pilih Metode Pembayaran:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <label style="flex: 1; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                            <input type="radio" name="metode_bayar" value="wa" checked> WhatsApp
+                        </label>
+                        <label style="flex: 1; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                            <input type="radio" name="metode_bayar" value="qris"> QRIS (E-Wallet)
+                        </label>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px; border-bottom: 2px dashed #eee; padding-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem; margin-bottom: 12px;">
+                        <span>Total Pembayaran:</span>
+                        <span id="total-harga-keranjang">Rp 0</span>
+                    </div>
+                    <!-- UBAH ONCLICK BUTTON: Memicu fungsi proses checkout adaptif -->
+                    <button class="btn-checkout-wa" onclick="prosesCheckoutKeranjang()">
+                        <i class="fas fa-check-circle"></i> Proses Pembayaran
+                    </button>
+                </div>
+
+                <div id="list-item-keranjang" style="max-height: 240px; overflow-y: auto;"></div>
+             </div>
+        </div>
+
+        <!-- TAMBAHAN: MODAL POP-UP QRIS -->
+        <div id="modal-qris" class="modal" style="z-index: 3000;">
+            <div class="modal-content" style="max-width: 400px; text-align: center; padding: 25px;">
+                <span class="close-modal" onclick="tutupModalQris()">&times;</span>
+                <h3 style="text-align: center; margin-bottom: 10px; color: var(--warna-gelap); font-weight: 700;">Pembayaran QRIS</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Silakan scan QRIS di bawah ini sebesar:</p>
+        
+                <!-- Tempat nominal total dinamis -->
+                <div id="qris-total-tagihan" style="font-size: 1.6rem; font-weight: bold; color: var(--warna-utama); margin-bottom: 15px;">Rp 0</div>
+        
+                <!-- Gambar QRIS Toko -->
+                <img src="images/qris-kupilih-rasa.png" alt="QRIS Kupilih Rasa" style="width: 100%; max-width: 220px; margin: 0 auto 15px auto; display: block; border: 1px solid #eee; padding: 5px; border-radius: 8px;">
+        
+                <!-- INPUT UPLOAD BUKTI PEMBAYARAN -->
+                <div style="margin-bottom: 15px; text-align: left; background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px dashed #ccc;">
+                    <label style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px; color: var(--warna-gelap);">
+                        <i class="fas fa-camera"></i> Upload Bukti Pembayaran (Wajib):
+                    </label>
+                    <input type="file" id="qris-bukti-file" accept="image/*" style="width: 100%; font-size: 0.85rem;">
+                </div>
+
+                <div style="background: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 15px; text-align: left;">
+                    <i class="fas fa-info-circle"></i> <strong>Penting:</strong> Masukkan foto/screenshot bukti transfer di atas terlebih dahulu, kemudian klik tombol di bawah agar pesanan diproses.
+                </div>
+        
+                <button class="btn-checkout-wa" onclick="konfirmasiPembayaranQrisSelesai()">
+                    <i class="fas fa-paper-plane"></i> Saya Sudah Bayar
+                </button>
+            </div>
+        </div>
 
     <footer>
         <p>&copy 2026 Kupilih Rasa. Dibuat dengan ❤️</p>
